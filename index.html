@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Training</title>
+
+<meta name="theme-color" content="#3f5d45">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Training">
+<meta name="description" content="Trainingsplan, Ernährung und tägliche Checkliste für einen 90-Tage-Fettabbau-Plan.">
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ NAV / BOTTOM TAB BAR ============ -->
+  <nav class="sidebar">
+    <div class="brand">
+      <div class="brand-title">Training</div>
+    </div>
+    <div class="nav" id="nav">
+      <button class="nav-item" data-view="uebersicht"><span class="ic">01</span> Übersicht</button>
+      <button class="nav-item active" data-view="system"><span class="ic">02</span> Heute</button>
+      <button class="nav-item" data-view="training"><span class="ic">03</span> Training</button>
+      <button class="nav-item" data-view="ernaehrung"><span class="ic">04</span> Ernährung</button>
+      <button class="nav-item" data-view="situationen"><span class="ic">05</span> Regeln</button>
+      <button class="nav-item" data-view="review"><span class="ic">06</span> Review</button>
+    </div>
+    <div class="sidebar-foot">
+      <button class="theme-toggle theme-toggle-label" id="theme-toggle">ANSICHT: SYSTEM</button>
+    </div>
+  </nav>
+
+  <div class="main">
+    <!-- ============ STATUS STRIP ============ -->
+    <div class="status-strip">
+      <div class="status-cell accent">
+        <span class="status-label">Tag</span>
+        <span class="status-value mono" id="stat-day">–<span class="unit">/ 90</span></span>
+      </div>
+      <div class="status-cell">
+        <span class="status-label">Phase</span>
+        <span class="status-value mono" id="stat-phase">–</span>
+      </div>
+      <div class="status-cell">
+        <span class="status-label">Woche</span>
+        <span class="status-value mono" id="stat-week">–</span>
+      </div>
+      <div class="status-cell">
+        <span class="status-label">Streak</span>
+        <span class="status-value mono" id="stat-streak">0<span class="unit">Tage</span></span>
+      </div>
+      <div class="status-cell">
+        <span class="status-label">Heute erledigt</span>
+        <span class="status-value mono" id="stat-today">0<span class="unit">%</span></span>
+      </div>
+      <button class="theme-toggle theme-toggle-icon theme-toggle-mobile" id="theme-toggle-2" aria-label="Darstellung wechseln">◐</button>
+    </div>
+
+    <!-- ============ 01 ÜBERSICHT ============ -->
+    <section class="view" id="view-uebersicht">
+      <div class="hero">
+        <span class="eyebrow">90 Tage · Kein Crash-Kurs</span>
+        <h1>Ein ruhiges System statt eines strengen Plans</h1>
+        <p class="lead">Kein Verbotskatalog, keine Crash-Diät. Dieses System kombiniert moderates Krafttraining, ein flexibles Ernährungsgerüst und tägliche Gewohnheiten, die auch an schlechten Tagen funktionieren. Das Ziel: in 90 Tagen spürbar weniger Bauch- und Brustfett — durch Konsistenz, nicht durch Perfektion.</p>
+      </div>
+
+      <div class="section">
+        <div class="card">
+          <h3>Start festlegen</h3>
+          <p>Trag dein Startdatum ein — Tag, Phase und Woche oben berechnen sich automatisch. Alles wird nur lokal auf diesem Handy/Browser gespeichert.</p>
+          <div style="display:flex; gap:10px; align-items:end; flex-wrap:wrap;">
+            <div class="field" style="max-width:200px;">
+              <label for="start-date">Startdatum</label>
+              <input type="date" id="start-date">
+            </div>
+            <button class="btn" id="set-start">Übernehmen</button>
+            <button class="btn ghost small" id="reset-all">Alle Daten zurücksetzen</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Die drei Phasen</h2>
+        <div class="timeline">
+          <div class="phase-row" data-phase="1">
+            <span class="phase-tag">PHASE 1</span>
+            <div>
+              <strong>Bodyweight-Basis</strong>
+              <div class="phase-bar"><span style="width:0%"></span></div>
+            </div>
+            <span class="phase-days">Tag 1–30</span>
+          </div>
+          <div class="phase-row" data-phase="2">
+            <span class="phase-tag">PHASE 2</span>
+            <div>
+              <strong>Progression &amp; Gym-Einstieg</strong>
+              <div class="phase-bar"><span style="width:0%"></span></div>
+            </div>
+            <span class="phase-days">Tag 31–60</span>
+          </div>
+          <div class="phase-row" data-phase="3">
+            <span class="phase-tag">PHASE 3</span>
+            <div>
+              <strong>Aufbau &amp; Feinschliff</strong>
+              <div class="phase-bar"><span style="width:0%"></span></div>
+            </div>
+            <span class="phase-days">Tag 61–90</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section grid-2">
+        <div class="card">
+          <h3>Grundprinzipien</h3>
+          <ul style="margin:0; padding-left:18px; color:var(--ink-soft);">
+            <li>Moderates Kaloriendefizit (~300–500 kcal) — kein Hungern</li>
+            <li>Protein bei jeder Hauptmahlzeit</li>
+            <li>Kein Lebensmittel ist verboten</li>
+            <li>Tägliche Bewegung zählt mehr als perfekte Workouts</li>
+            <li>Fortschritt wöchentlich messen, nicht täglich auf die Waage starren</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>So nutzt du dieses System</h3>
+          <ul style="margin:0; padding-left:18px; color:var(--ink-soft);">
+            <li>Morgens &amp; abends: <strong>Heute</strong> (Checkliste) abhaken</li>
+            <li>An Trainingstagen: <strong>Training</strong> öffnen</li>
+            <li>Bei Unsicherheit beim Essen: <strong>Ernährung</strong></li>
+            <li>Wenn's schwierig wird: <strong>Regeln</strong></li>
+            <li>Jeden Sonntag: kurzer Check-in unter <strong>Review</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="lbl">Leitsatz</span>
+        <p>Ein ausgelassenes Training oder ein spontanes Stück Kuchen wirft dich nicht zurück. Aufgegebene Routinen tun das. Es geht darum, an möglichst vielen Tagen "gut genug" zu machen — nicht darum, nie einen schlechten Tag zu haben.</p>
+      </div>
+    </section>
+
+    <!-- ============ 02 HEUTE / TÄGLICHES SYSTEM ============ -->
+    <section class="view active" id="view-system">
+      <div class="hero">
+        <span class="eyebrow">Jeden Tag, in dieser Reihenfolge</span>
+        <h1>Tägliches System</h1>
+        <p class="lead">Wenige, feste Ankerpunkte statt einer langen To-do-Liste. Die mit "Kern" markierten Punkte zählen für deinen Streak — der Rest ist Bonus, kein Muss.</p>
+      </div>
+
+      <div class="card" style="margin-bottom:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+          <div>
+            <strong id="today-label">Heute</strong>
+            <div style="font-size:0.85rem; color:var(--ink-faint);">Fortschritt des heutigen Tages</div>
+          </div>
+          <button class="btn ghost small" id="reset-today">Heute zurücksetzen</button>
+        </div>
+        <div class="progress-track"><span id="today-progress-bar" style="width:0%"></span></div>
+      </div>
+
+      <div class="checklist-group">
+        <h3>Morgens</h3>
+        <div id="check-morning"></div>
+      </div>
+      <div class="checklist-group">
+        <h3>Über den Tag</h3>
+        <div id="check-day"></div>
+      </div>
+      <div class="checklist-group">
+        <h3>Abends</h3>
+        <div id="check-evening"></div>
+      </div>
+
+      <div class="card">
+        <h3>Schritteziel je Phase</h3>
+        <div class="table-wrap">
+          <table class="plan">
+            <thead><tr><th>Phase</th><th>Ziel / Tag</th><th>Hinweis</th></tr></thead>
+            <tbody>
+              <tr><td class="ex">Phase 1 (Tag 1–30)</td><td>6.000–7.000 Schritte</td><td>Basis aufbauen — Spaziergänge zählen voll mit</td></tr>
+              <tr><td class="ex">Phase 2 (Tag 31–60)</td><td>~8.000 Schritte</td><td>z.B. Telefonate im Gehen, eine Station früher aussteigen</td></tr>
+              <tr><td class="ex">Phase 3 (Tag 61–90)</td><td>9.000–10.000 Schritte</td><td>Abendspaziergang als feste Routine etablieren</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="lbl">Warum diese Reihenfolge</span>
+        <p>Wasser und Protein am Morgen dämpfen den Hunger über den Tag. Eine grobe Routine bei den Mahlzeiten verhindert planloses Snacken. Ein fester Zubettgeh-Zeitpunkt stabilisiert Hunger- und Sättigungshormone — Schlaf ist damit Teil des Fettabbau-Plans, nicht nur "nice to have".</p>
+      </div>
+      <div class="callout amber">
+        <span class="lbl">Wenn du nicht alles schaffst</span>
+        <p>Priorität haben die Kern-Punkte: Wasser, Protein-Frühstück, Schritte, Wasser über den Tag, geplantes Training. Der Rest ist Feinschliff. Ein Tag mit nur den Kern-Punkten ist ein guter Tag.</p>
+      </div>
+    </section>
+
+    <!-- ============ 03 TRAINING ============ -->
+    <section class="view" id="view-training">
+      <div class="hero">
+        <span class="eyebrow">Aktuell: Zuhause, ohne Geräte · Anfänger</span>
+        <h1>Trainingsplan</h1>
+        <p class="lead">Startet als reines Bodyweight-Training zuhause, wächst mit dir mit und bietet ab Phase 2 den Umstieg ins Gym. Form geht immer vor Tempo oder Wiederholungszahl.</p>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <h3>Grundregeln fürs Training</h3>
+        <ul style="margin:0; padding-left:18px; color:var(--ink-soft);">
+          <li>3 Trainingstage pro Woche (z.B. Mo / Mi / Fr), dazwischen aktive Ruhetage mit Spaziergang</li>
+          <li>5 Minuten Aufwärmen: lockere Bewegung, Gelenkkreisen, ein paar langsame Wiederholungen der ersten Übung</li>
+          <li>Progression: mehr Wiederholungen, längere Haltezeit oder eine schwerere Variante — nicht alles gleichzeitig</li>
+          <li>Muskelkater ist normal, aber kein Ziel. Bei starkem Kater: leichtere Einheit statt Ausfall</li>
+        </ul>
+      </div>
+
+      <div class="accordion open" data-acc>
+        <button class="acc-head">
+          <div>
+            <h3>Phase 1 · Tag 1–30 — Bodyweight-Basis</h3>
+            <div class="meta">3× Ganzkörper/Woche, zuhause, ohne Geräte</div>
+          </div>
+          <span class="acc-chevron">›</span>
+        </button>
+        <div class="acc-body">
+          <p>Jede Übung 3 Sätze. Zwischen den Sätzen 60–90 Sekunden Pause. Wenn du bei der letzten Wiederholung eines Satzes die Form sauber hältst, ist es die richtige Schwierigkeit.</p>
+          <div class="table-wrap">
+            <table class="plan">
+              <thead><tr><th>Übung</th><th>Sätze × Wdh.</th><th>Hinweis</th></tr></thead>
+              <tbody>
+                <tr><td class="ex">Kniebeuge (Körpergewicht)</td><td>3 × 12–15</td><td>Fersen am Boden, Knie in Zehenrichtung</td></tr>
+                <tr><td class="ex">Liegestütz (Knie oder erhöht, z.B. an der Tischkante)</td><td>3 × 8–12</td><td>Variante so wählen, dass die letzte Wdh. noch sauber ist</td></tr>
+                <tr><td class="ex">Ausfallschritt rückwärts</td><td>3 × 10 / Seite</td><td>Kontrolliert, Knie nicht nach innen kippen</td></tr>
+                <tr><td class="ex">Unterarmstütz (Plank)</td><td>3 × 20–30 Sek.</td><td>Po anspannen, Rücken nicht durchhängen lassen</td></tr>
+                <tr><td class="ex">Glute Bridge</td><td>3 × 15</td><td>Oben 1 Sekunde halten</td></tr>
+                <tr><td class="ex">Superman (Rückenstrecker)</td><td>2 × 12</td><td>Langsam, ohne Schwung</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout">
+            <span class="lbl">Progression in Phase 1</span>
+            <p>Jede Woche: 1–2 Wiederholungen mehr pro Satz oder 5 Sekunden längere Haltezeit — sobald der aktuelle Umfang leichtfällt.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" data-acc>
+        <button class="acc-head">
+          <div>
+            <h3>Phase 2 · Tag 31–60 — Progression &amp; Gym-Einstieg</h3>
+            <div class="meta">Zwei Optionen — wähle je nachdem, ob du schon ins Gym gewechselt bist</div>
+          </div>
+          <span class="acc-chevron">›</span>
+        </button>
+        <div class="acc-body">
+          <h3 style="margin-top:14px;">Option A — weiter zuhause (fortgeschritten)</h3>
+          <div class="table-wrap">
+            <table class="plan">
+              <thead><tr><th>Übung</th><th>Sätze × Wdh.</th><th>Hinweis</th></tr></thead>
+              <tbody>
+                <tr><td class="ex">Liegestütz (Standard, Boden)</td><td>3 × 8–12</td><td>Wenn zu leicht: Füße erhöhen</td></tr>
+                <tr><td class="ex">Bulgarian Split Squat (hinterer Fuß auf Stuhl)</td><td>3 × 10 / Seite</td><td>Langsam runter, kontrolliert hoch</td></tr>
+                <tr><td class="ex">Pike Push-up (Schulter)</td><td>3 × 8–10</td><td>Po hoch, Kopf Richtung Boden</td></tr>
+                <tr><td class="ex">Side Plank</td><td>3 × 20–30 Sek. / Seite</td><td>Hüfte nicht absacken lassen</td></tr>
+                <tr><td class="ex">Wandsitz (Wall Sit)</td><td>3 × 30–40 Sek.</td><td>Knie im 90°-Winkel</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3 style="margin-top:20px;">Option B — Einstieg im Gym</h3>
+          <p>Die ersten zwei Wochen im Gym: bewusst leichte Gewichte, Fokus auf Bewegungsausführung statt Belastung. Ruhig eine Einweisung an den Geräten mitnehmen.</p>
+          <div class="table-wrap">
+            <table class="plan">
+              <thead><tr><th>Übung</th><th>Sätze × Wdh.</th><th>Hinweis</th></tr></thead>
+              <tbody>
+                <tr><td class="ex">Beinpresse oder Kniebeuge (Multipresse)</td><td>3 × 10–12</td><td>Gewicht so wählen, dass Form sauber bleibt</td></tr>
+                <tr><td class="ex">Latzug oder Klimmzugmaschine</td><td>3 × 10–12</td><td>Schulterblätter aktiv nach unten ziehen</td></tr>
+                <tr><td class="ex">Brustpresse (Maschine)</td><td>3 × 10–12</td><td>Kontrollierte Bewegung, kein Durchstrecken der Ellbogen</td></tr>
+                <tr><td class="ex">Rudermaschine (sitzend)</td><td>3 × 10–12</td><td>Rücken gerade, Zug kommt aus dem Rücken</td></tr>
+                <tr><td class="ex">Schulterdrücken (Maschine)</td><td>3 × 10–12</td><td>Nicht ins Hohlkreuz fallen</td></tr>
+                <tr><td class="ex">Cable Crunch oder Plank</td><td>3 × 12–15 / 30 Sek.</td><td>Bauch, nicht Hüftbeuger, macht die Arbeit</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" data-acc>
+        <button class="acc-head">
+          <div>
+            <h3>Phase 3 · Tag 61–90 — Aufbau &amp; Feinschliff</h3>
+            <div class="meta">Gym-Ganzkörper, 3–4×/Woche, mit Doppelprogression</div>
+          </div>
+          <span class="acc-chevron">›</span>
+        </button>
+        <div class="acc-body">
+          <p>Doppelprogression: Bleib beim Gewicht, bis du in allen Sätzen die obere Wiederholungszahl schaffst — dann erst das Gewicht leicht erhöhen.</p>
+          <div class="table-wrap">
+            <table class="plan">
+              <thead><tr><th>Übung</th><th>Sätze × Wdh.</th><th>Hinweis</th></tr></thead>
+              <tbody>
+                <tr><td class="ex">Kniebeuge / Beinpresse</td><td>3 × 8–12</td><td>Gewicht steigern, wenn oben im Bereich sauber machbar</td></tr>
+                <tr><td class="ex">Bankdrücken / Brustpresse</td><td>3 × 8–12</td><td>Schulterblätter fixiert</td></tr>
+                <tr><td class="ex">Rudern (Kabel oder Kurzhantel)</td><td>3 × 10–12</td><td>Ausgleich zur Druckbewegung — nicht weglassen</td></tr>
+                <tr><td class="ex">Schulterdrücken</td><td>3 × 8–12</td><td>Rumpf angespannt</td></tr>
+                <tr><td class="ex">Klimmzug (unterstützt) / Latzug</td><td>3 × 8–12</td><td>Voller Bewegungsradius</td></tr>
+                <tr><td class="ex">Ausfallschritte mit Kurzhanteln</td><td>3 × 10 / Seite</td><td>Leichtes Gewicht reicht völlig</td></tr>
+                <tr><td class="ex">Bauch (Cable Crunch / Plank-Progression)</td><td>3 × 12–15</td><td>Qualität vor Menge</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout amber">
+            <span class="lbl">Deload in Woche 12</span>
+            <p>Tag ~84–90: Intensität und Sätze um etwa ein Drittel reduzieren. Zeit für Erholung und für den 90-Tage-Rückblick unter Review.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3>10-Minuten-Notfall-Session</h3>
+        <p>Für Tage ohne Zeit oder Motivation — besser als ganz auszulassen: 3 Runden à Kniebeuge (15×), Liegestütz (8–10×), Plank (20 Sek.), jeweils direkt hintereinander, kurze Pause zwischen den Runden.</p>
+      </div>
+    </section>
+
+    <!-- ============ 04 ERNÄHRUNG ============ -->
+    <section class="view" id="view-ernaehrung">
+      <div class="hero">
+        <span class="eyebrow">Rahmen statt Regelwerk</span>
+        <h1>Ernährung</h1>
+        <p class="lead">Kein Lebensmittel ist verboten, nichts wird streng abgezählt. Ein moderates Defizit reicht für stetigen, haltbaren Fortschritt — realistisch sind etwa 0,3–0,6&nbsp;kg pro Woche.</p>
+      </div>
+
+      <div class="callout">
+        <span class="lbl">Warum kein strenger Diätplan</span>
+        <p>Starre Pläne scheitern meist nicht an mangelnder Disziplin, sondern daran, dass Alltag, Restaurantbesuche oder ein stressiger Tag nicht vorgesehen sind. Ein flexibler Rahmen, den du 90 Tage durchhältst, schlägt einen perfekten Plan, den du nach zwei Wochen aufgibst.</p>
+      </div>
+
+      <div class="section">
+        <h2>Die Teller-Methode</h2>
+        <p>Als grobe Orientierung pro Hauptmahlzeit — kein Wiegen, kein Zählen nötig. Angepasst an einen aktuell geringen Gemüseanteil: lieber klein anfangen und langsam steigern, als sofort umzukrempeln.</p>
+        <div class="plate">
+          <div class="plate-circle" style="background: conic-gradient(var(--accent) 0deg 90deg, var(--amber) 90deg 180deg, var(--surface-3) 180deg 270deg, var(--accent-soft) 270deg 360deg);"></div>
+          <div class="plate-legend">
+            <div class="row"><span class="sw" style="background:var(--accent)"></span> ¼ Protein (Hähnchen, Ei, Quark, Linsen …)</div>
+            <div class="row"><span class="sw" style="background:var(--amber)"></span> ¼ Kohlenhydrate (Reis, Kartoffeln, Brot, Nudeln)</div>
+            <div class="row"><span class="sw" style="background:var(--surface-3)"></span> ¼ Gemüse/Obst — start klein, z.B. 1 Handvoll</div>
+            <div class="row"><span class="sw" style="background:var(--accent-soft)"></span> ¼ frei wählbar (Fett-Quelle oder mehr von deinen Favoriten)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section grid-2">
+        <div class="card">
+          <h3>Proteinquellen (ohne Fisch)</h3>
+          <ul style="margin:0; padding-left:18px; color:var(--ink-soft);">
+            <li>Hähnchen- oder Putenbrust</li>
+            <li>Mageres Rind- oder Schweinefleisch</li>
+            <li>Eier</li>
+            <li>Quark, Skyr, Hüttenkäse, griechischer Joghurt</li>
+            <li>Linsen, Kichererbsen, Bohnen</li>
+            <li>Tofu / Tempeh</li>
+            <li>Whey-Protein — als Ergänzung, kein Muss</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Gemüse: klein anfangen, kein Zwang</h3>
+          <p style="margin-bottom:8px;">Aktuell isst du wenig Gemüse — das ist okay als Startpunkt.</p>
+          <ul style="margin:0; padding-left:18px; color:var(--ink-soft);">
+            <li>1 Handvoll pro Hauptmahlzeit als Minimalziel, nicht ein voller Salatteller</li>
+            <li>Gut verträglich für viele: Karotten, Gurke, Mais, Tomaten, Tiefkühlgemüse in Fertiggerichten</li>
+            <li>Obst zählt mit für Mikronährstoffe, wenn Gemüse schwerfällt</li>
+            <li>Menge alle paar Wochen freiwillig steigern — nicht auf einmal</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="card">
+          <h3>Beispieltag <span class="pill">flexibel, kein Muss</span></h3>
+          <div class="table-wrap">
+            <table class="plan">
+              <thead><tr><th>Mahlzeit</th><th>Beispiel</th></tr></thead>
+              <tbody>
+                <tr><td class="ex">Frühstück</td><td>3 Eier + Toast, oder Haferflocken mit Milch, Quark und Obst</td></tr>
+                <tr><td class="ex">Mittag</td><td>Hähnchen oder Rind mit Reis oder Kartoffeln + Handvoll Gemüse</td></tr>
+                <tr><td class="ex">Snack (optional)</td><td>Skyr oder griechischer Joghurt, ein Stück Obst, eine Handvoll Nüsse</td></tr>
+                <tr><td class="ex">Abend</td><td>Quark/Hüttenkäse oder Ei-Gericht mit Brot, oder Reste vom Mittag</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section grid-2">
+        <div class="card">
+          <h3>Mahlzeiten-Timing</h3>
+          <ul style="margin:0; padding-left:18px; color:var(--ink-soft);">
+            <li>3 Hauptmahlzeiten als Anker, 0–2 Snacks nach Bedarf</li>
+            <li>Grob feste Zeitfenster statt exakter Uhrzeiten</li>
+            <li>Letzte große Mahlzeit ca. 2–3h vor dem Schlafen — Richtwert, kein hartes Verbot</li>
+            <li>Kein Intervallfasten nötig, außer du willst es freiwillig ausprobieren</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Hydration</h3>
+          <ul style="margin:0; padding-left:18px; color:var(--ink-soft);">
+            <li>Ziel: 2,5–3 Liter Wasser pro Tag</li>
+            <li>Ein Glas Wasser vor jeder Hauptmahlzeit — hilft gegen Übergessen</li>
+            <li>Kaffee/Tee zählen mit, Wasser bleibt aber die Priorität</li>
+            <li>Alkohol separat betrachten — siehe Regeln</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 05 SITUATIONEN / REGELN ============ -->
+    <section class="view" id="view-situationen">
+      <div class="hero">
+        <span class="eyebrow">Wenn–Dann-Regeln</span>
+        <h1>Schwierige Situationen</h1>
+        <p class="lead">Für die Momente, in denen Motivation nicht reicht. Jede Karte ist eine fertige Entscheidung, damit du in der Situation nicht neu verhandeln musst.</p>
+      </div>
+
+      <div class="wd-grid">
+        <div class="wd-card">
+          <span class="wd-if">Heißhunger</span>
+          <div class="wd-situation">Plötzliches starkes Verlangen nach Süßem oder Salzigem</div>
+          <div class="wd-then"><span class="arrow">→</span> Ein Glas Wasser trinken, 10 Minuten warten.</div>
+          <div class="wd-then"><span class="arrow">→</span> Bleibt es: eine bewusste, kleine Portion genießen — nichts verbieten.</div>
+          <div class="wd-why">Verbote verstärken Verlangen. Die 10-Minuten-Regel trennt echten Hunger vom Impuls, ohne Askese.</div>
+        </div>
+
+        <div class="wd-card">
+          <span class="wd-if">Essen gehen</span>
+          <div class="wd-situation">Restaurant, Lieferdienst oder Besuch bei anderen</div>
+          <div class="wd-then"><span class="arrow">→</span> Zuerst Protein + Beilage wählen, danach über Vorspeise/Dessert entscheiden.</div>
+          <div class="wd-then"><span class="arrow">→</span> Ein Getränk mit Kalorien ist okay — danach nicht "kompensieren".</div>
+          <div class="wd-why">Protein zuerst verhindert, dass am Ende nur Kohlenhydrate und Fett auf dem Teller landen.</div>
+        </div>
+
+        <div class="wd-card">
+          <span class="wd-if">Wochenende</span>
+          <div class="wd-situation">Weniger Struktur an Samstag/Sonntag</div>
+          <div class="wd-then"><span class="arrow">→</span> 2 von 3 Ankern halten: Protein zur ersten Mahlzeit, Schritte-Ziel, Aufstehzeit ±1h.</div>
+          <div class="wd-then"><span class="arrow">→</span> Der Rest darf flexibel sein.</div>
+          <div class="wd-why">Große Unterschiede zwischen Woche und Wochenende erzeugen Schwankungen bei Gewicht und Motivation.</div>
+        </div>
+
+        <div class="wd-card">
+          <span class="wd-if">Training verpasst</span>
+          <div class="wd-situation">Ein geplantes Workout fällt aus</div>
+          <div class="wd-then"><span class="arrow">→</span> Nicht nachholen oder verdoppeln.</div>
+          <div class="wd-then"><span class="arrow">→</span> Notfall-Session (10 Min., siehe Training) oder ganz ausfallen lassen.</div>
+          <div class="wd-why">Die einzige Regel, die zählt: nie zweimal in Folge auslassen. Ein Ausfall wirkt sich kaum aus, eine aufgegebene Routine schon.</div>
+        </div>
+
+        <div class="wd-card">
+          <span class="wd-if">Wenig Schlaf / Stress</span>
+          <div class="wd-situation">Schlecht geschlafen oder ein anstrengender Tag</div>
+          <div class="wd-then"><span class="arrow">→</span> Trainingsintensität senken statt streichen — z.B. nur Aufwärmen + Spaziergang.</div>
+          <div class="wd-then"><span class="arrow">→</span> Proteinmahlzeiten trotzdem einhalten, früher ins Bett.</div>
+          <div class="wd-why">Schlafmangel erhöht Hungerhormone und Heißhunger auf Zucker — die Grundgewohnheiten fangen das auf.</div>
+        </div>
+
+        <div class="wd-card">
+          <span class="wd-if">Wenig Zeit</span>
+          <div class="wd-situation">Voller Terminkalender, kein Kopf für Kochen</div>
+          <div class="wd-then"><span class="arrow">→</span> Notfall-Mahlzeit: Eier/Quark/Proteinshake + schnelle Kohlenhydratquelle (Reis-Beutel, Brot, Obst).</div>
+          <div class="wd-why">Besser eine einfache Mahlzeit als gar keine oder unkontrolliertes Essen später aus Hunger.</div>
+        </div>
+
+        <div class="wd-card">
+          <span class="wd-if">Party / Alkohol</span>
+          <div class="wd-situation">Ausgehen mit Alkohol geplant</div>
+          <div class="wd-then"><span class="arrow">→</span> Vorher normal und proteinreich essen — nicht "sparen" für den Abend.</div>
+          <div class="wd-then"><span class="arrow">→</span> Zwischen Drinks Wasser trinken. Am nächsten Tag ganz normal weitermachen.</div>
+          <div class="wd-why">Kalorien vorab einzusparen führt meist zu mehr Kontrollverlust. Ein Abend beeinflusst 90 Tage nicht spürbar.</div>
+        </div>
+
+        <div class="wd-card">
+          <span class="wd-if">Reisen / Urlaub</span>
+          <div class="wd-situation">Gewohnte Routine fehlt unterwegs</div>
+          <div class="wd-then"><span class="arrow">→</span> Nur 2 Dinge halten: tägliche Bewegung (Spaziergang reicht) und ungefähr regelmäßige Essenszeiten.</div>
+          <div class="wd-then"><span class="arrow">→</span> Modus bewusst auf "Erhalt" statt "Fortschritt" umstellen.</div>
+          <div class="wd-why">Reisen sind zeitlich begrenzt — Erhalt-Modus verhindert Rückschritt, ohne dass der Urlaub zur Belastung wird.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 WOCHENREVIEW ============ -->
+    <section class="view" id="view-review">
+      <div class="hero">
+        <span class="eyebrow">Einmal pro Woche, nicht täglich</span>
+        <h1>Wochenreview</h1>
+        <p class="lead">Gewicht schwankt täglich durch Wasser, Salz und Verdauung — das sagt wenig aus. Ein Eintrag pro Woche, am besten immer am selben Wochentag und zur gleichen Tageszeit, zeigt den echten Trend.</p>
+      </div>
+
+      <div class="card" style="margin-bottom:22px;">
+        <h3>Neuer Eintrag</h3>
+        <div class="log-form">
+          <div class="field"><label for="log-date">Datum</label><input type="date" id="log-date"></div>
+          <div class="field"><label for="log-weight">Gewicht (kg)</label><input type="number" step="0.1" id="log-weight" placeholder="z.B. 84.5"></div>
+          <div class="field"><label for="log-waist">Bauchumfang (cm)</label><input type="number" step="0.5" id="log-waist" placeholder="optional"></div>
+          <div class="field"><label for="log-chest">Brustumfang (cm)</label><input type="number" step="0.5" id="log-chest" placeholder="optional"></div>
+          <div class="field">
+            <label for="log-energy">Energie (1–5)</label>
+            <select id="log-energy">
+              <option value="">–</option>
+              <option value="1">1 — erschöpft</option>
+              <option value="2">2</option>
+              <option value="3">3 — okay</option>
+              <option value="4">4</option>
+              <option value="5">5 — top</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:12px;">
+          <label for="log-note">Notiz</label>
+          <textarea id="log-note" placeholder="Was lief gut? Was war schwierig?"></textarea>
+        </div>
+        <button class="btn" id="log-save">Eintrag speichern</button>
+      </div>
+
+      <div class="card" style="margin-bottom:22px;">
+        <h3>Gewichtstrend</h3>
+        <div class="sparkline-wrap">
+          <canvas id="weight-spark" width="480" height="120"></canvas>
+          <div id="spark-empty" class="empty-hint">Noch keine Einträge — trag oben dein erstes Gewicht ein.</div>
+        </div>
+        <div class="table-wrap">
+          <table class="plan" id="log-table">
+            <thead><tr><th>Datum</th><th>Gewicht</th><th>Bauch</th><th>Brust</th><th>Energie</th><th>Notiz</th><th></th></tr></thead>
+            <tbody id="log-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Reflexionsfragen dieser Woche</h3>
+        <p>Kurz beantworten, nicht perfekt formulieren. Wird lokal gespeichert.</p>
+        <div class="field" style="margin-bottom:10px;">
+          <label>Was lief diese Woche gut?</label>
+          <textarea id="refl-good"></textarea>
+        </div>
+        <div class="field" style="margin-bottom:10px;">
+          <label>Welche Regel war am schwersten einzuhalten?</label>
+          <textarea id="refl-hard"></textarea>
+        </div>
+        <div class="field" style="margin-bottom:12px;">
+          <label>Was passe ich nächste Woche an? (klein, nicht radikal)</label>
+          <textarea id="refl-adjust"></textarea>
+        </div>
+        <button class="btn ghost small" id="refl-save">Reflexion speichern</button>
+        <span id="refl-saved" style="margin-left:10px; font-size:0.82rem; color:var(--ink-faint);"></span>
+      </div>
+
+      <div class="footer-note">Alle Daten (Checklisten, Startdatum, Log, Reflexion) liegen ausschließlich lokal in diesem Browser/App-Speicher — nirgendwo sonst.</div>
+    </section>
+
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
