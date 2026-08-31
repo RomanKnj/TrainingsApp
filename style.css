@@ -215,8 +215,8 @@ a { color: var(--accent-strong); }
 .check-item:last-child { border-bottom: none; }
 .check-item input { margin-top: 3px; width: 22px; height: 22px; accent-color: var(--accent); flex-shrink: 0; cursor: pointer; }
 .check-item .txt { flex: 1; }
-.check-item .txt .t { font-weight: 500; color: var(--ink); }
-.check-item .txt .d { font-size: 0.85rem; color: var(--ink-faint); margin-top: 1px; }
+.check-item .txt .t { display: block; font-weight: 500; color: var(--ink); }
+.check-item .txt .d { display: block; font-size: 0.85rem; color: var(--ink-faint); margin-top: 1px; }
 .check-item.core .t::after { content: "· Kern"; font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-strong); font-weight: 400; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
 .check-item input:checked ~ .txt .t { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--border); }
 
